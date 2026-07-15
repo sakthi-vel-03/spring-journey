@@ -5,7 +5,7 @@ public class FunctionalInterfaceDemo {
     @FunctionalInterface
     interface PaymentProcessor {
         void process(double amount);
-//         void cancel(); // try uncommenting this
+//         int cancel(); // try uncommenting this
     }
 
     public static void main(String[] args) {
