@@ -28,7 +28,8 @@ public class AccountService {
 		BankAccount account =  new BankAccount();
 		account.setAccountNo(accountNo);
 		account.setBankName(bankName);
-		accountRepository.save(account);
+		System.out.println("Account Created");
+//		accountRepository.save(account);
 	}
 	
 	public void deposit(String accountNo, double amount) throws AccountNotFoundException{
