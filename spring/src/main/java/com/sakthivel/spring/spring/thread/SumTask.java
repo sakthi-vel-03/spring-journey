@@ -7,7 +7,8 @@ public class SumTask implements Callable<Integer>{
 
 	@Override
 	public Integer call() throws Exception {
-//		throw new SQLException();
+		System.out.println("Current Thread is : "+Thread.currentThread().getName());
+		Thread.sleep(1000);
  		return 0;
 	}
 
