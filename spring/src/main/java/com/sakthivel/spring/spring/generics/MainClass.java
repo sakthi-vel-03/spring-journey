@@ -70,7 +70,8 @@ public class MainClass {
     
     // bounded wildcards
     public static double sum(List<? extends Number> list) {
-//    	list.add(0.00);
+//    	list.add(0.00); // will not add
+    	list.add(null);
         double total = 0;
         for (Number n : list) {
             total += n.doubleValue();
@@ -95,6 +96,8 @@ public class MainClass {
 	}
     
     public static void addNumbers(List<? super Integer> list) {
+//    	Object b = list.get(0);
+    	Integer x = (Integer) list.get(0);
         for (int i = 1; i <= 5; i++) {
             list.add(i);
         }
@@ -114,5 +117,7 @@ public class MainClass {
         System.out.println("numList: " + numList);
         System.out.println("objList: " + objList);
 	}
+    
+    
 
 }

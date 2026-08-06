@@ -24,7 +24,7 @@ public class ThreadOverload {
 	}
 	
 	// Using Executor Service
-	public static void ThreadWithPool() {
+	public static void ThreaadWithPool() {
 		
 		System.out.println("Starting to create threads with executor service");
 		long start = System.currentTimeMillis();
@@ -41,20 +41,23 @@ public class ThreadOverload {
 	// 2 variants of executor service
 	public static void threadPoolMethods() {
 		
-		System.out.println("Starting to create threads with Fixed Thread Pool ");
-		ExecutorService ft = Executors.newFixedThreadPool(2);
-		for(int i = 0 ; i < 5 ; i++) {
-			SumTask st = new SumTask();
-			ft.submit(st);
-		}
-		
+//		System.out.println("Starting to create threads with Fixed Thread Pool ");
+//		ExecutorService ft = Executors.newFixedThreadPool(2);
+//		for(int i = 0 ; i < 5 ; i++) {
+//			SumTask st = new SumTask();
+//			ft.submit(st);
+//		}
+//		
 		System.out.println("Starting to create threads with Cached Thread Pool ");
 		ExecutorService ct = Executors.newCachedThreadPool();
-		for(int i = 0 ; i < 5 ; i++) {
+		long start = System.currentTimeMillis();
+		for(int i = 0 ; i < 50 ; i++) {
 			SumTask st = new SumTask();
 			ct.submit(st);
 		}
-		ft.shutdown();
+		long end = System.currentTimeMillis() - start;
+		System.out.println("Time Taken to complete the cached pool "+ end + "  ms");
+//		ft.shutdown();
 		ct.shutdown();
 	}
 }
