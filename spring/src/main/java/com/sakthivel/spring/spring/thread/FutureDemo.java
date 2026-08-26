@@ -129,6 +129,97 @@ public class FutureDemo {
 			}
 	    	
 		}
+	    
+	    public static void parallelAsync() {
+			
+	    	CompletableFuture<String> name = CompletableFuture.supplyAsync(()->{
+	    		return "Sakthivel";
+	    	});
+
+	    	CompletableFuture<Integer> age = CompletableFuture.supplyAsync(()->{
+	    		return 22;
+	    	});
+	    	
+	    	CompletableFuture<String> sentence = name.thenCombine(age, (strName,StrAge)->{
+	    		return strName+" age is "+StrAge;
+	    	});
+	    	
+	    	try {
+				String stmt = sentence.get();
+				System.out.println(stmt);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+		}
+	    
+	    // more than 2 sync
+	    public static void parallelAsync2() {
+			
+	    	CompletableFuture<String> name = CompletableFuture.supplyAsync(()->{
+	    		try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		return "Sakthivel";
+	    	});
+	    	CompletableFuture<Integer> age = CompletableFuture.supplyAsync(()->{
+	    		try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		return 22;
+	    	});
+	    	CompletableFuture<String> city = CompletableFuture.supplyAsync(()->{
+	    		try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		return "Chennai";
+	    	});
+	    	
+	    	CompletableFuture<String> strname = name.thenCombine(age,(strName,StrAge)->{
+	    		return strName+" is "+ StrAge;
+	    	}).thenCombine(city,(strnameWithAge,strCity)->{
+	    		return strnameWithAge+ " from "+strCity;
+	    	});
+	    	
+	    	CompletableFuture<Void> allvalues = CompletableFuture.allOf(name,age, city);
+	    	CompletableFuture<Object> anyvalue = CompletableFuture.anyOf(name,age, city);
+	    	
+	    	try {
+	    		
+//				String stmt = strname.get();
+//				System.out.println(stmt);
+	    		
+//	    		allvalues.get();
+//	    		String strName = name.get();
+//	    		Integer strAge = age.get();
+//	    		String strCity = city.get();
+//	    		System.out.println(strName + " is "+strAge+" from "+strCity);
+	    		
+	    		Object obj = anyvalue.get();
+	    		System.out.println(obj);
+	    		
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+		}
 
     public static void main(String[] args) throws Exception {
 //        System.out.println("=== SUCCESS CASE ===");
@@ -140,6 +231,8 @@ public class FutureDemo {
 //    	  computeNumbers();
 //    	 computeNumbers2();
 //	     System.out.println("main() has reached its final line and is returning now.");
-    	 MultiAsync();
+//    	 MultiAsync();
+//    	parallelAsync();
+    	parallelAsync2();
     }
 }
